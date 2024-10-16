@@ -1,19 +1,19 @@
 function convertToObject(sourceString) {
-  const styles = {};
-
-  sourceString
+  return sourceString
     .split(';')
-    .filter(line => line.trim())
-    .forEach(line => {
+    .filter((line) => line.trim())
+    .reduce((acc, line) => {
       const [property, value] = line.split(':');
-      if (property && value) {
-        const key = property.trim();
-        const val = value.trim();
-        styles[key] = val;
-      }
-    });
 
-  return styles;
+      if (property && value) {
+        const trimmedProperty = property.trim();
+        const trimmedValue = value.trim();
+
+        acc[trimmedProperty] = trimmedValue;
+      }
+
+      return acc;
+    }, {});
 }
 
 module.exports = convertToObject;
